@@ -1,33 +1,74 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
-type TourismCardProps = {
-  id: string;
-  name: string;
-  country: string;
-  description: string;
-  rating: number;
-  imageUrl: string;
-};
-
-const TourismCard = ({ id, name, country, description, rating, imageUrl }: TourismCardProps) => {
+const TourismCard = ({ id, name, country, description, rating, imageUrl }) => {
   return (
-    <TouchableOpacity
-      key={id}
-      className="mb-6 p-4 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300"
-    >
-      <Image
-        source={{ uri: imageUrl }}
-        className="w-[365px] h-[200px] rounded-lg mb-4"
+    <View key={id} style={styles.card}>
+      <Image 
+        source={{ uri: imageUrl }} 
+        style={styles.image} 
+        resizeMode="cover"
       />
-      <Text className="text-2xl font-bold text-gray-900">{name}</Text>
-      <Text className="text-lg text-gray-500">{country}</Text>
-      <Text className="text-sm text-gray-600 mt-2 line-clamp-2">{description}</Text>
-      <View className="mt-2 flex-row items-center">
-        <Text className="text-sm text-yellow-500 font-semibold">Rating: {rating}★</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.country}>{country}</Text>
       </View>
-    </TouchableOpacity>
+      <View style={styles.ratingContainer}>
+        <Text style={styles.rating}>⭐ {rating.toFixed(1)}</Text>
+      </View>
+      <Text style={styles.description}>{description}</Text>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    borderRadius: 12,
+  },
+  content: {
+    marginTop: 12,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  country: {
+    fontSize: 16,
+    color: '#666',
+  },
+  ratingContainer: {
+    marginTop: 8,
+    backgroundColor: '#FFF7D6',
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderRadius: 12,
+    alignSelf: 'flex-start',
+  },
+  rating: {
+    color: '#E5A00D',
+    fontWeight: 'bold',
+  },
+  description: {
+    marginTop: 12,
+    color: '#555',
+    lineHeight: 20,
+  },
+});
 
 export default TourismCard;
